@@ -11,20 +11,41 @@ function addTodo() {
 
   todoListArray.push(todo.value);
 
-  let todoList = document.createElement("li");
-  todoList.textContent = todo.value;
-
-  todos.appendChild(todoList);
+  localStorage.setItem(localStorage.length, todo.value);
 
   todo.value = "";
+
+  window.location.reload();
+}
+
+function showTodos() {
+  let todoList;
+
+  if(localStorage.length == 0){
+    todoList = document.createElement("h3");
+    todoList.textContent = "No todo here.";
+    todos.appendChild(todoList);
+  } else {
+    for (let i = 0; i < localStorage.length; i++) {
+      todoList = document.createElement("li");
+      todoList.id = `todo${i}`;
+      todoList.classList.add("todoList");
+      todoList.innerHTML = `<span>${localStorage.getItem(i)}</span><div class="edit-delete"><button class="" onclick="">Edit</button><button class="delete" onclick="singleDelete(${i})">Delete</button></div>`;
+      todos.appendChild(todoList);
+    }
+  }
+}
+
+function singleDelete(key){
+  localStorage.removeItem(key);
+  window.location.reload();
 }
 
 // Function to remove all todos
 function removeAllTodos() {
-  const element = document.getElementById("todos");
-  console.log(element);
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
+  if(confirm("Are you sure? ")){
+    localStorage.clear();
+    window.location.reload();
   }
 }
 
@@ -35,3 +56,7 @@ add.onclick = function () {
 removeAll.onclick = function () {
   removeAllTodos();
 };
+
+// Function Calls
+showTodos();
+
