@@ -75,3 +75,18 @@ li {
     text-align: left; 
     margin: auto;
 }
+
+.todoList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edit-delete {
+  display: flex;
+  gap: 4px;
+}
+
+.delete {
+  background-color: red;
+}
