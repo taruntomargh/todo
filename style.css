@@ -90,3 +90,13 @@ li {
 .delete {
   background-color: red;
 }
+
+.todoContent {
+  padding: 4px;
+}
+
+.editable {
+  background-color: white;
+  padding: 4px;
+  outline: auto;
+}
