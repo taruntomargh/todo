@@ -13,9 +13,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Status {
+  Uncompleted
+  Completed
+}
+
 model Todo {
   id Int @id @default(autoincrement())
   task String
+  status Status @default(Uncompleted)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user User @relation(fields: [userId], references: [id]) 
+}
+
+model User {
+  id String @id @default(uuid())
+  firstName String @map("first_name")
+  lastName String? @map("last_name")
+  email String @unique
+  password String
+
+  Todos Todo[]
+}
+
+model List {
+  id String @id @default(uuid())
+  listName String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
